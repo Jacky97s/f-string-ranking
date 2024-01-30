@@ -10,7 +10,7 @@ car_sales = {
     "Mercedes-Benz C-Class": 3000,
     "Audi A4": 2500,
     "Lexus RX": 2000,
-    "Tesla Model 3": 7000,
+    "Tesla Model 3": 27000,
     "Hyundai Elantra": 1500
 }
 
@@ -26,5 +26,5 @@ for key, value in sorted(car_sales.items(), key=lambda x: x[1], reverse=True):
     percentage_width = int((percentage_of_sales / 100) * (full_percentage_width))
     equal_signs = "=" * percentage_width
 
-    result = f"{key:<{max_len_of_key}} {equal_signs:<{full_percentage_width}} {round(percentage_of_sales, 2):>5}%"
+    result = f"{key:<{max_len_of_key}} {equal_signs:<{full_percentage_width}} {percentage_of_sales:>5.2f}%"
     print(result)
