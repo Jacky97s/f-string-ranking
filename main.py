@@ -1,9 +1,16 @@
 import shutil
+import re
+
+def count_chinese_characters(text):
+    pattern = re.compile(r'[\u4e00-\u9fff]')
+    chinese_characters = re.findall(pattern, text)
+    count = len(chinese_characters)
+    return count
 
 car_sales = {
-    "Toyota Camry": 5000,
-    "Honda Civic": 4500,
-    "Ford Mustang": 6000,
+    "一Toyota Camry": 5000,
+    "二二Honda Civic": 4500,
+    "三三三Ford Mustang": 6000,
     "Chevrolet Silverado": 5500,
     "Nissan Altima": 4000,
     "BMW 3 Series": 3500,
@@ -22,9 +29,11 @@ len_of_result = max_len_of_key + 8
 full_percentage_width = screen_width - len_of_result
 
 for key, value in sorted(car_sales.items(), key=lambda x: x[1], reverse=True):
+    count_of_chinese = count_chinese_characters(key)
+    
     percentage_of_sales = float(value/sum_of_sales) * 100
     percentage_width = int((percentage_of_sales / 100) * (full_percentage_width))
     equal_signs = "=" * percentage_width
 
-    result = f"{key:<{max_len_of_key}} {equal_signs:<{full_percentage_width}} {percentage_of_sales:>5.2f}%"
+    result = f"{key:<{max_len_of_key-count_of_chinese}} {equal_signs:<{full_percentage_width}} {percentage_of_sales:>5.2f}%"
     print(result)
